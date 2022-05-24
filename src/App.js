@@ -1,75 +1,60 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 
-// https://api.coincap.io/assets
-// icons - https://assets.coincap.io/assets/icons/usdc@2x.png
+// https://api.coincap.io/v2/assets?limit=20
 
 function App() {
   const [coins, setCoins] = useState([])
-  const [page, setPage] = useState(20)
+  const [limit, setLimit] = useState(20)
 
   useEffect(() => {
     const fetchCoins = async () => {
-      const res = await fetch(`https://api.coincap.io/v2/assets?limit=${page}`)
+      const res = await fetch(`https://api.coincap.io/v2/assets?limit=${limit}`)
       const data = await res.json()
+      console.log(data.data)
       setCoins(data.data)
     }
 
     fetchCoins()
-  }, [page])
+  }, [limit])
+
+  const handleRefresh = () => {
+    setLimit(20)
+    window.scrollTo(0, 0)
+  }
 
   return (
-    <>
-      {!coins ? (
-        <h1>Loading...</h1>
-      ) : (
-        <section>
-          <article className="coins">
-            <h2>Showing {coins.length} coins</h2>
-          </article>
+    <section className="coins">
+      <h1 style={{ textAlign: "center", marginBottom: "1rem" }}>
+        This App uses the <a href="https://coincap.io">CoinCap API</a>
+      </h1>
+      <article>
+        <p>Showing {coins.length} coins</p>
+      </article>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Price (USD)</th>
+          </tr>
+        </thead>
 
-          <h1 style={{ textAlign: "center" }}>
-            This app uses the <a href="https://coincap.io">CoinCap API</a>
-          </h1>
-          <table>
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>Name</th>
-                <th>Price(USD)</th>
-              </tr>
-            </thead>
-            {coins.map(({ id, rank, symbol, name, priceUsd }) => (
-              <React.Fragment key={id}>
-                <tbody>
-                  <tr>
-                    <td>{rank}</td>
-                    <td>
-                      {name}, <small>{symbol}</small>
-                    </td>
-                    <td>$ {parseFloat(priceUsd).toFixed(2)}</td>
-                  </tr>
-                </tbody>
-              </React.Fragment>
-            ))}
-          </table>
+        <tbody>
+          {coins.map(({ id, name, rank, priceUsd }) => (
+            <tr key={id}>
+              <td>{rank}</td>
+              <td>{name}</td>
+              <td>${parseFloat(priceUsd).toFixed(2)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-          <div className="buttons">
-            <button className="btn-next" onClick={() => setPage(page + 20)}>
-              Next
-            </button>
-            <button
-              className="btn-next"
-              onClick={() => {
-                setPage(20)
-                window.scrollTo(0, 0)
-              }}
-            >
-              Refresh
-            </button>
-          </div>
-        </section>
-      )}
-    </>
+      <div className="buttons">
+        <button onClick={() => setLimit(limit + 20)}>Next</button>
+        <button onClick={handleRefresh}>Refresh</button>
+      </div>
+    </section>
   )
 }
 
