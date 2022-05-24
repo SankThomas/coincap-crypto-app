@@ -1,13 +1,87 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #333;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+section {
+  max-width: 900px;
+  margin: auto;
+  padding: 4rem 1.25rem;
+}
+
+table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+table thead tr {
+  background-color: #10b581;
+  color: #fff;
+}
+
+table thead tr th {
+  font-weight: 400;
+  padding: 1.25rem;
+}
+
+table tbody:nth-child(odd) {
+  background-color: #e5e5e5;
+}
+
+table tbody tr td {
+  padding: 1.25rem;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-next {
+  background-color: #10b581;
+  color: #fff;
+  font-weight: bolder;
+  font-family: inherit;
+  font-size: 1rem;
+  border: none;
+  padding: 0.625rem 4rem;
+  letter-spacing: 0.1rem;
+  transition: opacity 0.3s ease-in-out;
+  margin: 1rem 0.3rem 0;
+  width: 100%;
+}
+
+.btn-next:hover {
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+.btn-next:focus {
+  outline: none;
+}
+
+.coins {
+  position: fixed;
+  right: 1.25rem;
+  top: 1.25rem;
+}
+
+.coins h2 {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.648);
+  background-color: #f1f1f1;
+  padding: 0.625rem;
 }
